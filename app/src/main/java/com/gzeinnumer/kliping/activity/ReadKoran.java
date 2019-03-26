@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.gzeinnumer.kliping.R;
+import com.gzeinnumer.kliping.adapter.AdapterAddPage;
+import com.gzeinnumer.kliping.adapter.AdapterPage;
 import com.gzeinnumer.kliping.modelpojo.ResponsePageKoran;
 import com.gzeinnumer.kliping.modelpojo.ResultItemPage;
 import com.gzeinnumer.kliping.network.RetroServer;
@@ -23,15 +27,16 @@ public class ReadKoran extends AppCompatActivity {
     public static String ID_KORAN = "ID_KORAN";
     String id_koran;
     List<ResultItemPage> list;
-    ArrayList<ResultItemPage> listData;
-
     ViewPager viewPager;
+    AdapterPage adapter;
 
-    int colors = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_read_koran);
 
         viewPager = findViewById(R.id.viewPager);
@@ -46,6 +51,7 @@ public class ReadKoran extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponsePageKoran> call, Response<ResponsePageKoran> response) {
 
+                list=response.body().getResult();
                 initDataToPager();
             }
 
@@ -57,6 +63,25 @@ public class ReadKoran extends AppCompatActivity {
     }
 
     private void initDataToPager() {
-        Toast.makeText(this, "Sukses", Toast.LENGTH_SHORT).show();
+        adapter = new AdapterPage(this, list);
+        viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(adapter);
+        viewPager.setPadding(0, 0, 0, 0);
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
     }
 }

@@ -18,7 +18,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.gzeinnumer.kliping.MainActivity;
 import com.gzeinnumer.kliping.R;
 import com.gzeinnumer.kliping.adapter.AdapterAddPage;
 import com.gzeinnumer.kliping.data.DataKoran;
@@ -40,7 +39,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Part;
 
 public class AddPage extends AppCompatActivity implements AdapterAddPage.onItemClick, I_AddPage {
 
