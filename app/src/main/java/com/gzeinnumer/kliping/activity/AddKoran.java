@@ -64,8 +64,14 @@ public class AddKoran extends AppCompatActivity implements I_AddKoran {
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.setIndeterminate(true);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
-        date = sdf.format(new Date());
+
+        Calendar calendar = Calendar.getInstance();
+
+        int yy = calendar.get(Calendar.YEAR);
+        int mm = calendar.get(Calendar.MONTH);
+        int dd = calendar.get(Calendar.DAY_OF_MONTH);
+
+        date = String.valueOf(yy+"-"+(mm+1)+"-"+dd);
         koranTanggal.setText(date);
 
     }

@@ -6,16 +6,16 @@ import com.google.gson.annotations.SerializedName;
 public class ResponseReadKoran{
 
 	@SerializedName("result")
-	private List<ResultItem> result;
+	private List<ResultItemKoran> result;
 
 	@SerializedName("kode")
 	private int kode;
 
-	public void setResult(List<ResultItem> result){
+	public void setResult(List<ResultItemKoran> result){
 		this.result = result;
 	}
 
-	public List<ResultItem> getResult(){
+	public List<ResultItemKoran> getResult(){
 		return result;
 	}
 

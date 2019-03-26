@@ -1,6 +1,7 @@
 package com.gzeinnumer.kliping.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gzeinnumer.kliping.R;
-import com.gzeinnumer.kliping.modelpojo.ResultItem;
+import com.gzeinnumer.kliping.activity.ReadKoran;
+import com.gzeinnumer.kliping.modelpojo.ResultItemKoran;
 
 import java.util.ArrayList;
 
@@ -18,9 +20,9 @@ import butterknife.ButterKnife;
 
 public class AdapterReadKoran extends RecyclerView.Adapter<AdapterReadKoran.MyHolder> {
     private Context context;
-    private ArrayList<ResultItem> list;
+    private ArrayList<ResultItemKoran> list;
 
-    public AdapterReadKoran(Context context, ArrayList<ResultItem> list) {
+    public AdapterReadKoran(Context context, ArrayList<ResultItemKoran> list) {
         this.context = context;
         this.list = list;
     }
@@ -34,9 +36,17 @@ public class AdapterReadKoran extends RecyclerView.Adapter<AdapterReadKoran.MyHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
+    public void onBindViewHolder(@NonNull MyHolder myHolder, final int i) {
         myHolder.itemNama.setText(list.get(i).getKoranNama());
         myHolder.itemTanggal.setText(list.get(i).getKoranTanggal());
+        myHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ReadKoran.class);
+                intent.putExtra(ReadKoran.ID_KORAN, list.get(i).getKoranId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
