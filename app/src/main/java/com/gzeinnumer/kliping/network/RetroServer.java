@@ -5,6 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetroServer {
     public static String BASE_URL = "http://192.168.95.245/kliping/";
+//    public static String BASE_URL = "http://192.168.137.1/kliping/";
     public static Retrofit setInit(){
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)

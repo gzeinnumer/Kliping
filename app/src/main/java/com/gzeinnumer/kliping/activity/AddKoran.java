@@ -1,6 +1,7 @@
 package com.gzeinnumer.kliping.activity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -50,11 +51,18 @@ public class AddKoran extends AppCompatActivity implements I_AddKoran {
     private String date;
     String namaKoran, tanggalKoran, jumHalaman;
 
+    public ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_koran);
         ButterKnife.bind(this);
+
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("Please Wait");
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setIndeterminate(true);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
         date = sdf.format(new Date());
@@ -85,7 +93,7 @@ public class AddKoran extends AppCompatActivity implements I_AddKoran {
         datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                date = datePicker.getYear()+ "-"+ datePicker.getMonth()+ "-"  +datePicker.getDayOfMonth();
+                date = datePicker.getYear()+ "-"+ (datePicker.getMonth()+1)+ "-"  +datePicker.getDayOfMonth();
                 koranTanggal.setText(date);
             }
         });
@@ -112,11 +120,13 @@ public class AddKoran extends AppCompatActivity implements I_AddKoran {
         } else if(jumHalaman.equals("")){
             koranJumHal.setError(getString(R.string.empty));
         } else {
+            mProgressDialog.show();
             fetchNewKoran();
         }
     }
 
     private void fetchNewKoran() {
+
         RetroServer.getInstance().newKoran(namaKoran,tanggalKoran,Integer.parseInt(jumHalaman)).enqueue(new Callback<ResponseNewKoran>() {
             @Override
             public void onResponse(Call<ResponseNewKoran> call, Response<ResponseNewKoran> response) {
@@ -128,7 +138,9 @@ public class AddKoran extends AppCompatActivity implements I_AddKoran {
                     intent.putExtra(AddPage.NAMA_KORAN,namaKoran);
                     intent.putExtra(AddPage.TANGGAL_KORAN,tanggalKoran);
                     intent.putExtra(AddPage.HAL, Integer.parseInt(jumHalaman));
+                    mProgressDialog.dismiss();
                     startActivity(intent);
+                    AddKoran.this.finish();
                 }
             }
 

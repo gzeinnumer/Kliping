@@ -1,6 +1,7 @@
 package com.gzeinnumer.kliping.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -17,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.gzeinnumer.kliping.MainActivity;
 import com.gzeinnumer.kliping.R;
 import com.gzeinnumer.kliping.adapter.AdapterAddPage;
 import com.gzeinnumer.kliping.data.DataKoran;
@@ -63,6 +65,9 @@ public class AddPage extends AppCompatActivity implements AdapterAddPage.onItemC
 
     int i;
 
+    public ProgressDialog mProgressDialog;
+
+
     File imagefile;
     private int PICK_IMAGE_REQUEST = 1;
     private static final int STORAGE_PERMISSION_CODE = 123;
@@ -76,6 +81,11 @@ public class AddPage extends AppCompatActivity implements AdapterAddPage.onItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_page);
         ButterKnife.bind(this);
+
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("Please Wait");
+        mProgressDialog.setMessage("Uploading...");
+        mProgressDialog.setIndeterminate(true);
 
         Intent intent = getIntent();
         varHal= intent.getIntExtra(HAL,0);
@@ -104,8 +114,10 @@ public class AddPage extends AppCompatActivity implements AdapterAddPage.onItemC
 
     @OnClick(R.id.save_koran)
     public void onViewClicked() {
+        mProgressDialog.show();
         int jumlah_page = DataKoran.listKoran.size();
         for (int i=0; i<jumlah_page; i++){
+
 
             imagefile = new File(DataKoran.listKoran.get(i).getPathFoto());
             varHalPage = String.valueOf(i+1);
@@ -130,7 +142,23 @@ public class AddPage extends AppCompatActivity implements AdapterAddPage.onItemC
 
                 }
             });
-
+            if((i+1)==jumlah_page){
+                Thread timer = new Thread(){
+                    @Override
+                    public void run() {
+                        try {
+                            sleep(2999);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } finally {
+                            mProgressDialog.dismiss();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                };
+                timer.start();
+            }
         }
     }
 
