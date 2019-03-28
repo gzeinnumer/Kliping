@@ -62,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
         String cpass = edtConPasswordRegister.getText().toString().trim();
         if (name.equals("")){
             edtUsernameRegister.setError("isi ini");
-        } else if (android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() || email.equals("")){
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() || email.equals("")){
             edtEmailRegister.setError("isi ini");
         } else if (pass.equals("") ){
             edtPasswordRegister.setError("isi ini");
