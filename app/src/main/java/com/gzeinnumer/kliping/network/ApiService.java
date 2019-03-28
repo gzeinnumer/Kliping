@@ -1,5 +1,7 @@
 package com.gzeinnumer.kliping.network;
 
+import com.gzeinnumer.kliping.modelpojo.ResponseDaftar;
+import com.gzeinnumer.kliping.modelpojo.ResponseLogin;
 import com.gzeinnumer.kliping.modelpojo.ResponseNewKoran;
 import com.gzeinnumer.kliping.modelpojo.ResponsePageKoran;
 import com.gzeinnumer.kliping.modelpojo.ResponsePageUpload;
@@ -36,5 +38,21 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("readpagekoran.php")
     Call<ResponsePageKoran> readPage(@Field("koran_id") String koran_id);
+
+    @FormUrlEncoded
+    @POST("daftar.php")
+    Call<ResponseDaftar> daftar(
+            @Field("user_name") String user_name,
+            @Field("user_email") String user_email,
+            @Field("user_pass") String user_pass
+    );
+
+    @FormUrlEncoded
+    @POST("login.php")
+    Call<ResponseLogin> login(
+            @Field("user_email") String user_email,
+            @Field("user_pass") String user_pass
+    );
+
 
 }

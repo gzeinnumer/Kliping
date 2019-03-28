@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:gravity="center"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="@drawable/hei"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.RegisterActivity">
+
+    <EditText
+        android:id="@+id/edt_username_register"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:hint="Username"
+        android:textColorHint="#cccbcb" />
+
+    <EditText
+        android:id="@+id/edt_email_register"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:hint="Email"
+        android:textColorHint="#cccbcb" />
+
+    <EditText
+        android:id="@+id/edt_password_register"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/background"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:hint="Password"
+        android:textColorHint="#cccbcb" />
+
+    <EditText
+        android:id="@+id/edt_con_password_register"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/background"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:hint="Confirm"
+        android:textColorHint="#cccbcb" />
+
+    <Button
+        android:id="@+id/btn_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background2"
+        android:text="Sign Up"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tv_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="right"
+        android:text="Have Account ? Sign in "
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+</LinearLayout>

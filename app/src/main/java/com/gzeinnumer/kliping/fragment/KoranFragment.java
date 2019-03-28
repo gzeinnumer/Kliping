@@ -15,6 +15,8 @@ import android.widget.DatePicker;
 
 import com.gzeinnumer.kliping.R;
 import com.gzeinnumer.kliping.activity.AddKoran;
+import com.gzeinnumer.kliping.activity.LoginActivity;
+import com.gzeinnumer.kliping.activity.MainActivity;
 import com.gzeinnumer.kliping.adapter.AdapterReadKoran;
 import com.gzeinnumer.kliping.modelpojo.ResponseReadKoran;
 import com.gzeinnumer.kliping.modelpojo.ResultItemKoran;
@@ -33,7 +35,6 @@ import retrofit2.Response;
 
 
 public class KoranFragment extends Fragment {
-
 
     RecyclerView rvMenuBerita;
     Unbinder unbinder;
@@ -54,7 +55,6 @@ public class KoranFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,6 +65,14 @@ public class KoranFragment extends Fragment {
         rvMenuBerita = view.findViewById(R.id.rv_menu_berita);
         btnDate = view.findViewById(R.id.btn_date);
         btnAddKoran = view.findViewById(R.id.btn_add_koran);
+
+        LoginActivity.SessionPreference mSession = new LoginActivity.SessionPreference(context);
+
+        if (mSession.getStatus().equals("admin")){
+            btnAddKoran.setVisibility(View.VISIBLE);
+        } else if(!mSession.getStatus().equals("admin")){
+            btnAddKoran.setVisibility(View.GONE);
+        }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd");
         date = sdf.format(new Date());
@@ -147,6 +155,4 @@ public class KoranFragment extends Fragment {
         Intent intent = new Intent(context, AddKoran.class);
         context.startActivity(intent);
     }
-
-
 }
